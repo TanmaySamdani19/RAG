@@ -3,6 +3,7 @@ langchain-groq
 faiss-cpu
 tiktoken
 langchain-community
+langchain-text-splitters
 langchain-openai
 chromadb
 sentence-transformers
@@ -21,3 +22,6 @@ matplotlib
 ## Embeddings
 langchain-huggingface
 sentence-transformers
+langchain-experimental
+
+rank_bm25

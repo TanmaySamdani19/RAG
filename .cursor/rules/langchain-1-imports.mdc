@@ -1,0 +1,30 @@
+---
+description: LangChain 1.x import paths for this RAG repo (notebooks and Python)
+globs: "**/*.{ipynb,py}"
+alwaysApply: true
+---
+
+# LangChain 1.x imports (use these, not pre-1.0 tutorial paths)
+
+Tutorials often use `langchain.*` monolith imports; in **LangChain 1.x** integrations and legacy chains live in separate packages.
+
+| Need | Import from |
+|------|-------------|
+| `ChatOpenAI`, `OpenAIEmbeddings` | `langchain_openai` |
+| `Document` | `langchain_core.documents` |
+| `PromptTemplate`, `ChatPromptTemplate` | `langchain_core.prompts` |
+| `RunnablePassthrough`, `RunnableMap`, LCEL | `langchain_core.runnables` |
+| `init_chat_model` | `langchain.chat_models` (still valid) |
+| Document loaders (`TextLoader`, PDF, CSV, etc.) | `langchain_community.document_loaders` — **not** `langchain.document_loaders` |
+| `RecursiveCharacterTextSplitter`, etc. | `langchain_text_splitters` — **not** `langchain.text_splitter` |
+| `StrOutputParser` | `langchain_core.output_parsers` |
+| FAISS, Chroma, community vector stores | `langchain_community.vectorstores` |
+| `BM25Retriever` and similar community retrievers | `langchain_community.retrievers` |
+| `EnsembleRetriever` | `langchain_classic.retrievers` |
+| `create_stuff_documents_chain`, `create_retrieval_chain`, `create_history_aware_retriever` | `langchain_classic.chains` / `langchain_classic.chains.combine_documents` |
+
+**Avoid** (usually wrong on LC 1.x): `langchain.document_loaders`, `langchain.text_splitter`, `from langchain.chat_models import ChatOpenAI`, `from langchain.prompts import ...`, `from langchain.chains...`, `from langchain.schema import Document`, `from langchain.retrievers import EnsembleRetriever`, typos like `StrOutputParse` (use `StrOutputParser`).
+
+**Retriever API:** prefer `retriever.invoke(query)` over `get_relevant_documents`.
+
+**Groq + `init_chat_model`:** do not pass `model="groq:..."` together with `model_provider="groq"`; use either `init_chat_model("llama-3.1-8b-instant", model_provider="groq")` or a single `"groq:..."` string without duplicate provider.
