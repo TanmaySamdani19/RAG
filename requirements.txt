@@ -23,5 +23,5 @@ matplotlib
 langchain-huggingface
 sentence-transformers
 langchain-experimental
-
+wikipedia
 rank_bm25
